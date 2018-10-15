@@ -12,6 +12,7 @@ v_lambda=[0.001 0.01 0.1 1 10 100 1000];
 A=[1 0 0.1 0 ; 0 1 0 0.1 ; 0 0 0.9 0 ; 0 0 0 0.9];
 B=[0 0 ; 0 0 ; 0.1 0 ; 0 0.1];
 Mean_deviation_1=[0 0 0 0 0 0 0];
+Count_1=[0 0 0 0 0 0 0];
 
 for aux=1:7
     lambda=v_lambda(aux);
@@ -42,27 +43,11 @@ for aux=1:7
     
     cvx_end;
     
-    figure(aux); clf;
-    subplot(1,2,1)
-    plot(w(1,:),w(2,:),'rs',35,15,0,-15,'MarkerSize',10); hold on;
-    plot(x(:,1),x(:,2),'bo','MarkerSize',3);
-    for k=1:6
-        plot(x(tau(k),1),x(tau(k),2),'ro','MarkerSize',8);
-    end
-    grid on;
-    subplot(1,2,2)
-    temp=[0:79];
-    plot(temp,u(1,:)); hold on;
-    plot(temp,u(2,:));
-    legend('u1(t)','u2(t)')
-    grid on;
-    
-    for k=1:6
-        Mean_deviation_1(aux) = ( (x(tau(k),1)-w(1,k))^2 +  (x(tau(k),2)-w(2,k))^2 )^(1/2) + Mean_deviation_1(aux);
-    end
-    Mean_deviation_1(aux) = (1/6)* Mean_deviation_1(aux);
+    [Mean_deviation_1(aux), Count_1(aux)] = results(lambda, x, w, u, tau);
+
 end
 Mean_deviation_1
+Count_1
 
 %%
 %Task2
@@ -80,6 +65,7 @@ v_lambda=[0.001 0.01 0.1 1 10 100 1000];
 A=[1 0 0.1 0 ; 0 1 0 0.1 ; 0 0 0.9 0 ; 0 0 0 0.9];
 B=[0 0 ; 0 0 ; 0.1 0 ; 0 0.1];
 Mean_deviation_2=[0 0 0 0 0 0 0];
+Count_2=[0 0 0 0 0 0 0];
 
 for aux=1:7
     lambda=v_lambda(aux);
@@ -110,27 +96,11 @@ for aux=1:7
     
     cvx_end;
     
-    figure(7+aux); clf;
-    subplot(1,2,1)
-    plot(w(1,:),w(2,:),'rs',35,15,0,-15,'MarkerSize',10); hold on;
-    plot(x(:,1),x(:,2),'bo','MarkerSize',3);
-    for k=1:6
-        plot(x(tau(k),1),x(tau(k),2),'ro','MarkerSize',8);
-    end
-    grid on;
-    subplot(1,2,2)
-    temp=[0:79];
-    plot(temp,u(1,:)); hold on;
-    plot(temp,u(2,:));
-    legend('u1(t)','u2(t)')
-    grid on;
-    
-    for k=1:6
-        Mean_deviation_2(aux) = ( (x(tau(k),1)-w(1,k))^2 +  (x(tau(k),2)-w(2,k))^2 )^(1/2) + Mean_deviation_2(aux);
-    end
-    Mean_deviation_2(aux) = (1/6)* Mean_deviation_2(aux);
+    [Mean_deviation_2(aux), Count_2(aux)] = results(lambda, x, w, u, tau);
+
 end
 Mean_deviation_2
+Count_2
 
 %%
 %Task 3
@@ -148,6 +118,8 @@ v_lambda=[0.001 0.01 0.1 1 10 100 1000];
 A=[1 0 0.1 0 ; 0 1 0 0.1 ; 0 0 0.9 0 ; 0 0 0 0.9];
 B=[0 0 ; 0 0 ; 0.1 0 ; 0 0.1];
 Mean_deviation_3=[0 0 0 0 0 0 0];
+Count_3=[0 0 0 0 0 0 0];
+
 
 for aux=1:7
     lambda=v_lambda(aux);
@@ -178,27 +150,10 @@ for aux=1:7
     
     cvx_end;
     
-    figure(14+aux); clf;
-    subplot(1,2,1)
-    plot(w(1,:),w(2,:),'rs',35,15,0,-15,'MarkerSize',10); hold on;
-    plot(x(:,1),x(:,2),'bo','MarkerSize',3);
-    for k=1:6
-        plot(x(tau(k),1),x(tau(k),2),'ro','MarkerSize',8);
-    end
-    grid on;
-    subplot(1,2,2)
-    temp=[0:79];
-    plot(temp,u(1,:)); hold on;
-    plot(temp,u(2,:));
-    legend('u1(t)','u2(t)')
-    grid on;
-    
-    for k=1:6
-        Mean_deviation_3(aux) = ( (x(tau(k),1)-w(1,k))^2 +  (x(tau(k),2)-w(2,k))^2 )^(1/2) + Mean_deviation_3(aux);
-    end
-    Mean_deviation_3(aux) = (1/6)* Mean_deviation_3(aux);
+    [Mean_deviation_3(aux), Count_3(aux)] = results(lambda, x, w, u, tau);
 end
 Mean_deviation_3
+Count_3
 
 %%
 %Task 6
@@ -216,6 +171,8 @@ v_lambda=[0.001 0.01 0.1 1 10 100 1000];
 A=[1 0 0.1 0 ; 0 1 0 0.1 ; 0 0 0.9 0 ; 0 0 0 0.9];
 B=[0 0 ; 0 0 ; 0.1 0 ; 0 0.1];
 Mean_deviation_6=[0 0 0 0 0 0 0];
+Count_6=[0 0 0 0 0 0 0];
+
 r=2;
 
 for aux=1:7
@@ -249,26 +206,10 @@ for aux=1:7
     
     cvx_end;
     
-    figure(14+aux); clf;
-    subplot(1,2,1)
-    plot(w(1,:),w(2,:),'ro',35,35,-15,-15,'MarkerSize',30); hold on;
-    plot(x(:,1),x(:,2),'bo','MarkerSize',3);
-    for k=1:6
-        plot(x(tau(k),1),x(tau(k),2),'ro','MarkerSize',8);
-    end
-    grid on;
-    subplot(1,2,2)
-    temp=[0:79];
-    plot(temp,u(1,:)); hold on;
-    plot(temp,u(2,:));
-    legend('u1(t)','u2(t)')
-    grid on;
+    [Mean_deviation_6(aux), Count_6(aux)] = results(lambda, x, w, u, tau);
     
-    for k=1:6
-        Mean_deviation_6(aux) = ( (x(tau(k),1)-w(1,k))^2 +  (x(tau(k),2)-w(2,k))^2 )^(1/2) + Mean_deviation_6(aux);
-    end
-    Mean_deviation_6(aux) = (1/6)* Mean_deviation_6(aux);
 end
 Mean_deviation_6
+Count_6
 
 
