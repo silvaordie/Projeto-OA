@@ -226,10 +226,10 @@ for aux=1:7
     
     %som =  power( abs(norm(x(1,1:2)-w(:,1)')-r) , 2 ) ;
     %som = ((x(tau(1),1)-w(1,1))^2 +  (x(tau(1),2)-w(2,1))^2) + r^2 + 2*norm(x(1,1:2)-w(:,1)')*r;
-    som = 0;
+    
     for k=1:6
       % som = ((x(tau(k),1)-w(1,k))^2 +  (x(tau(k),2)-w(2,k))^2) + r^2 + 2*norm(x(k,1:2)-w(:,k)')*r + som;
-      som =  square_pos( square_pos(norm(x(tau(k),1:2)-w(:,k)')) - square_pos(r)) + som ;
+      som =  square_pos( square_pos(norm(x(tau(k),1:2)-w(:,k)') - r)) + som ;
     end
     for t=2:T
        som = som + lambda*norm( u(:,t)-u(:,t-1) );
