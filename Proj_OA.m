@@ -212,4 +212,53 @@ end
 Mean_deviation_6
 Count_6
 
+%%
+%Task 7
+
+T=80;
+P_ini=[0 5];
+V_ini=[0 0];
+P_fin=[15 -15];
+V_fin=[0 0];
+w=[10 20 30 30 20 10 ; 10 10 10 0 0 -10];
+tau=[10 25 30 40 50 60];
+U_max=15;
+E=[1 0 0 0 ; 0 1 0 0];
+v_lambda=[0.001 0.01 0.1 1 10 100 1000];
+A=[1 0 0.1 0 ; 0 1 0 0.1 ; 0 0 0.9 0 ; 0 0 0 0.9];
+B=[0 0 ; 0 0 ; 0.1 0 ; 0 0.1];
+Mean_deviation_7=[0 0 0 0 0 0 0];
+Count_7=[0 0 0 0 0 0 0];
+
+r=2;
+
+for aux=1:7
+    lambda=v_lambda(aux);
+    cvx_begin quiet
+    variable x(T,4);
+    variable u(2,T);
+    
+    
+    minimize( 0 )
+    
+    x(1,:) == [P_ini V_ini];
+    x(T,:) == [P_fin V_fin];
+    
+    for t=1:T
+        ( (u(1,t))^2 + (u(2,t))^2 ) <= U_max^2;
+    end
+    for t=1:T-1
+        x(t+1,:) == (A*x(t,:)' + B*u(:,t))';
+    end
+    for k=2:5
+      x(tau(k),1:2) == w(:,k)';
+    end
+    
+    cvx_end;
+    
+    [Mean_deviation_7(aux), Count_7(aux)] = results(lambda, x, w, u, tau);
+    
+end
+Mean_deviation_7
+Count_7
 
