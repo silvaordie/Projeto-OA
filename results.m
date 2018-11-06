@@ -21,7 +21,7 @@ function [deviation, count]=results(lambda, x, w, u, tau )
     
     %Controlo
     subplot(1,2,2)
-    temp=[0:80];
+    temp=0:length(u)-1;
     plot(temp,u(1,:)); 
     hold on;
     plot(temp,u(2,:));

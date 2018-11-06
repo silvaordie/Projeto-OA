@@ -232,8 +232,7 @@ Count_7=[0 0 0 0 0 0 0];
 
 r=2;
 
-for aux=1:7
-    lambda=v_lambda(aux);
+
     cvx_begin quiet
     variable x(T,4);
     variable u(2,T);
@@ -258,7 +257,6 @@ for aux=1:7
     
     [Mean_deviation_7(aux), Count_7(aux)] = results(lambda, x, w, u, tau);
     
-end
 Mean_deviation_7
 Count_7
 
