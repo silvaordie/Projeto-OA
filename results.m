@@ -12,7 +12,7 @@ function [deviation, count]=results(lambda, x, w, u, tau )
     for k=1:6
         plot(x(tau(k),1),x(tau(k),2),'ro','MarkerSize',8);
     end
-    legend('Pontos Intermédios','Trajeto','Instantes de chave');
+    legend('Pontos Intermédios','Trajeto','Instantes chave');
     xlabel('X1');
     ylabel('X2');
     title(['Trajeto do robô para lambda=', num2str(lambda)]);
