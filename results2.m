@@ -1,13 +1,12 @@
 function count=results2( x , w , u , tau )
     
     T=81;
-    deviation=0;
     count=0;
     
     %Trajeto
     figure;
     subplot(1,2,1)
-    plot(w(1,:),w(2,:), '+' , 'MarkerSize' , 5 ); hold on;
+    plot(w(1,:),w(2,:), 'rs' ,35,15,0,-15, 'MarkerSize' , 5 ); hold on;
     plot( x(:,1) , x(:,2) , 'bo' , 'MarkerSize' , 3);
     
     for k=1:6
@@ -20,7 +19,6 @@ function count=results2( x , w , u , tau )
     title('Trajeto do robô');
     grid on;
     
-    %Controlo
     subplot(1,2,2)
     temp=0:length(u)-1;
     plot(temp,u(1,:)); 
@@ -31,9 +29,10 @@ function count=results2( x , w , u , tau )
     ylabel('Amplitude');
     title('Sinais de controlo para');
     grid on;
-    
+   
+    count = 0;    
     for k=1:6
-       if( norm( x(tau(k),1:2) - w(:,k)' )  > 10^-6 )
+       if( norm( x(tau(k),1:2) - w(:,k)' )  <= 10^-6 )
           count = count+1; 
        end
     end
