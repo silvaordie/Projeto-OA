@@ -1,0 +1,8 @@
+function x=GradientAlgorithm(x0, e, data)    
+    
+    while(norm(g)<e)  
+       d=-g;
+       a=Backtracking();
+       x=x+a*d;     
+    end
+end
