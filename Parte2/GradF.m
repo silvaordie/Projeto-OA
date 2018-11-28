@@ -6,7 +6,11 @@ function g=GradF(x, data)
      
      s1=eak./( eak+ones(length(eak),1) ) ;
      s2=s1-Y';
-     s=sum(ak'.*[s2, s2, s2]);
+     A=s2;
+     for i=2:length(x)
+        A(:,i) = s2;
+     end
+     s=sum(ak'.*A);
      
      g=(s/length(X))';
 
