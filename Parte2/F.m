@@ -5,7 +5,7 @@ function f=F(x, data)
      eak=exp(ak'*x);
      
      p1=log(ones(size(eak)) + eak);
-     p2=Y'.*eak;
+     p2=Y'.*ak'*x;
      
      s=sum(p1-p2);
      
