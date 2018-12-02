@@ -16,5 +16,6 @@ function [x,g]=NewtonAlgorithm(x0, e, data)
        x=x+d*a;
        k=k+1;
        g(1:length(x0),k)=GradF(x,data);
+       g2(1:length(x0),1:length(x0))=GradF2(x,data);
     end
 end
