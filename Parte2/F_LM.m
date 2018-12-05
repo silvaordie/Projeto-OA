@@ -1,10 +1,9 @@
-function f_lm=F_LM(x, data)
-    
+function [f_lm,f_lm_j]=F_LM(x, data)
      load(data);
      %Cria a matriz A de forma a -sp=A*x
      for k1=1:length(iA)
         for k2=1:length(x)-1
-            if k2 == 2*iA(k1,2)
+            if k2 == 2*iA(k1,2)-1
                 A_s(k1*2-1,k2)=-1;
                 A_s(k1*2,k2+1)=-1;
             else
@@ -17,7 +16,7 @@ function f_lm=F_LM(x, data)
      %Cria a matriz B de forma a sp-sq=B*x
      for k1=1:length(iS)
         for k2=1:length(x)-1
-            if k2 == 2*iS(k1,1)
+            if k2 == 2*iS(k1,1)-1
                 B_s(k1*2-1,k2)=1;
                 B_s(k1*2,k2+1)=1;
             elseif k2 == 2*iS(k1,2)
@@ -31,19 +30,27 @@ function f_lm=F_LM(x, data)
      end
      
      %Calculo do somatorio de f1
-     aux = 0;
+     aux_1 = 0;
+     aux_2 = 0;
      for j=1:length(y)
-        aux = aux + y(j)*sqrt( ( A_s(j*2-1,:)*x+b_s(j*2-1) )^2 + ( A_s(j*2,:)*x+b_s(j*2) )^2 );
+         aux_1 = y(j)*sqrt( ( A_s(j*2-1,:)*x+b_s(j*2-1) )^2 + ( A_s(j*2,:)*x+b_s(j*2) )^2 );
+         aux_2 = aux_2 + aux_1;
+         f1_j(j,1) = x'*A_s(j*2-1:2*j,:)'*A_s(j*2-1:2*j,:)*x + b_s(j*2-1:j*2)'*b_s(j*2-1:j*2) + y(j)^2 + 2*b_s(j*2-1:j*2)'*A_s(j*2-1:2*j,:)*x - 2*aux_1;
      end
-     som_f1 = x'*A_s'*A_s*x + b_s'*b_s + y'*y + 2*b_s'*A_s*x - 2*aux;
+     som_f1 = x'*A_s'*A_s*x + b_s'*b_s + y'*y + 2*b_s'*A_s*x - 2*aux_2;
      
      %Calculo do somatorio de f2
-     aux = 0;
+     aux_1 = 0;
+     aux_2 = 0;
      for j=1:length(z)
-        aux = aux + z(j)*sqrt( (B_s(j*2-1,:)*x)^2 + (B_s(j*2,:)*x)^2 );
+        aux_1 = z(j)*sqrt( (B_s(j*2-1,:)*x)^2 + (B_s(j*2,:)*x)^2 );
+        aux_2 = aux_2 + aux_1;
+        f2_j(j,1) = x'*B_s(j*2-1:2*j,:)'*B_s(j*2-1:2*j,:)*x + z(j)^2 - 2*aux_1;
      end
-     som_f2 = x'*B_s'*B_s*x + z'*z - 2*aux;
+     som_f2 = x'*B_s'*B_s*x + z'*z - 2*aux_2;
      
      %Calculo de f
      f_lm=som_f1+som_f2;
+     %Criação do vetor f_lm_j = ¨[ f1_j f2_j ]'
+     f_lm_j = [ f1_j ; f2_j ];
 end
