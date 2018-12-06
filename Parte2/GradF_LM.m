@@ -2,29 +2,29 @@ function [g_lm,g_lm_j]=GradF_LM(x, data)
      load(data);
      %Cria a matriz A de forma a -sp=A*x
      for k1=1:length(iA)
-        for k2=1:length(x)-1
-            if k2 == 2*iA(k1,2)-1
-                A_s(k1*2-1,k2)=-1;
-                A_s(k1*2,k2+1)=-1;
+        for k2=1:length(x)/2
+            if k2 == iA(k1,2)
+                A_s(k1*2-1,2*k2-1)=-1;
+                A_s(k1*2,2*k2)=-1;
             else
-                A_s(k1*2-1,k2)=0;
-                A_s(k1*2,k2+1)=0; 
+                A_s(k1*2-1,2*k2-1)=0;
+                A_s(k1*2,2*k2)=0; 
             end
         end
         b_s((2*k1-1):(2*k1),1) = A(1:2,iA(k1));
      end
      %Cria a matriz B de forma a sp-sq=B*x
      for k1=1:length(iS)
-        for k2=1:length(x)-1
-            if k2 == 2*iS(k1,1)-1
-                B_s(k1*2-1,k2)=1;
-                B_s(k1*2,k2+1)=1;
-            elseif k2 == 2*iS(k1,2)
-                B_s(k1*2-1,k2)=-1;
-                B_s(k1*2,k2+1)=-1;
+        for k2=1:length(x)/2
+            if k2 == iS(k1,1)
+                B_s(k1*2-1,2*k2-1)=1;
+                B_s(k1*2,2*k2)=1;
+            elseif k2 == iS(k1,2)
+                B_s(k1*2-1,2*k2-1)=-1;
+                B_s(k1*2,2*k2)=-1;
             else
-                B_s(k1*2-1,k2)=0;
-                B_s(k1*2,k2+1)=0; 
+                B_s(k1*2-1,2*k2-1)=0;
+                B_s(k1*2,2*k2)=0; 
             end
          end
      end
