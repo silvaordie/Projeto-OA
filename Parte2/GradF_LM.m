@@ -35,7 +35,8 @@ function [g_lm,g_lm_j]=GradF_LM(x, data)
      for j=1:length(y)
          aux_1 = ( (y(j)/sqrt( ( A_s(j*2-1,:)*x+b_s(j*2-1) )^2 + ( A_s(j*2,:)*x+b_s(j*2) )^2 )) * ( A_s(j*2-1:j*2,:)'*A_s(j*2-1:j*2,:)*x + A_s(j*2-1:j*2,:)'*b_s(j*2-1:j*2) ) );
          aux_2 = aux_2 + aux_1;
-         grad_f1_j(j,:) = 2*A_s(j*2-1:2*j,:)'*A_s(j*2-1:2*j,:)*x + 2*A_s(j*2-1:2*j,:)'*b_s(j*2-1:j*2) - 2*aux_1;
+         %grad_f1_j(j,:) = 2*A_s(j*2-1:2*j,:)'*A_s(j*2-1:2*j,:)*x + 2*A_s(j*2-1:2*j,:)'*b_s(j*2-1:j*2) - 2*aux_1;
+         grad_f1_j(j,:) = ( A_s(j*2-1:j*2,:)'*A_s(j*2-1:j*2,:)*x + A_s(j*2-1:j*2,:)'*b_s(j*2-1:j*2) ) / ( sqrt( ( A_s(j*2-1,:)*x+b_s(j*2-1) )^2 + ( A_s(j*2,:)*x+b_s(j*2) )^2 ) );
      end
      grad_f1 = 2*A_s'*A_s*x + 2*A_s'*b_s - 2*aux_2;
      
@@ -45,7 +46,8 @@ function [g_lm,g_lm_j]=GradF_LM(x, data)
      for j=1:length(z)
          aux_1 = ( (z(j)/sqrt( ( B_s(j*2-1,:)*x )^2 + ( B_s(j*2,:)*x )^2 )) * ( B_s(j*2-1:j*2,:)'*B_s(j*2-1:j*2,:)*x ) );
          aux_2 = aux_2 + aux_1;
-         grad_f2_j(j,:) = 2*B_s(j*2-1:2*j,:)'*B_s(j*2-1:2*j,:)*x - 2*aux_1;
+         %grad_f2_j(j,:) = 2*B_s(j*2-1:2*j,:)'*B_s(j*2-1:2*j,:)*x - 2*aux_1;
+         grad_f2_j(j,:) = ( B_s(j*2-1:j*2,:)'*B_s(j*2-1:j*2,:)*x ) / sqrt( ( B_s(j*2-1,:)*x )^2 + ( B_s(j*2,:)*x )^2 ) ;
      end
      grad_f2 = 2*B_s'*B_s*x - 2*aux_2;
      
