@@ -1,4 +1,4 @@
-function [x,g]=LM_Algorithm(x0, e, data)   
+function [x,g_lm]=LM_Algorithm(x0, e, data)   
     x=x0;
     [g_lm(1:length(x0),1),g_lm_j] = GradF_LM(x,data);
     [f_lm,f_lm_j] = F_LM(x,data);
