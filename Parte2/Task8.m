@@ -10,7 +10,6 @@ figure(1)
 for i=1:length(g_lm)
 norm_g(i)=norm( g_lm(:,i) );
 end
-norm_g(20)=10^-6;
 semilogy( norm_g ,'LineWidth',1.5);
 grid on
 
