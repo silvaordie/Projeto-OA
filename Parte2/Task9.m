@@ -2,7 +2,7 @@
 %Para esta task estou a fazer 10 inicializações random para o problema,
 %e estou a representar as posições e o andamento da norma do gradiente de
 %todas essas inicializações
-
+clear
 for I=1:10
     g_lm=0;
     norm_g=0;
@@ -13,9 +13,9 @@ for I=1:10
     for i=1:16
         aux=rand;
         if aux <= 0.5
-            x0(i)=rand*20;
+            x0(i,1)=rand*15;
         else
-            x0(i)=-rand*20;
+            x0(i,1)=-rand*15;
         end
     end
     [x,g_lm] = LM_Algorithm(x0, e, data)  ;
@@ -43,5 +43,6 @@ for I=1:10
     hold on
     
     
-    F_LM(x,data)
+    [f(I),f_j] = F_LM(x,data);
+    f(I)
 end
